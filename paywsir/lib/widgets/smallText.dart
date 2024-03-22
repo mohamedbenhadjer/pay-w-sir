@@ -10,7 +10,7 @@ class SmallText extends StatelessWidget {
 
   // Font size of the text. Default is 12.
   double size;
-
+  FontWeight? weight;
   // Line height of the text. Default is 1.2.
   double height;
 
@@ -19,6 +19,7 @@ class SmallText extends StatelessWidget {
     Key? key, // Key for widget identification and comparison.
     this.color = const Color(0xFF000000), // Default color is light gray.
     required this.text, // Text content is required.
+    this.weight = FontWeight.w400,
     this.height = 1.2, // Default line height is 1.2.
     this.size = 12, // Default font size is 12.
   }) : super(key: key); // Call the super constructor with the key.
@@ -30,7 +31,7 @@ class SmallText extends StatelessWidget {
       text,
       style: TextStyle(
         color: color,
-        fontWeight: FontWeight.w400,
+        fontWeight: weight,
         fontSize: size,
         height: height,
         fontFamily: 'Urbanist',

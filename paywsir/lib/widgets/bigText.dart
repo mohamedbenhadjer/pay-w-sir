@@ -11,7 +11,7 @@ class BigText extends StatelessWidget {
 
   // Font size of the text. Default is 20.
   double size;
-
+  FontWeight? weight;
   // Text overflow behavior. Default is ellipsis.
   TextOverflow overflow;
 
@@ -19,7 +19,7 @@ class BigText extends StatelessWidget {
   BigText({
     Key? key, // Key for widget identification and comparison.
     this.color = const Color(0xFF000000), // Default color is dark brown.
-
+    this.weight = FontWeight.w400,
     required this.text, // Text content is required.
     this.overflow =
         TextOverflow.ellipsis, // Default overflow behavior is ellipsis.
@@ -35,9 +35,9 @@ class BigText extends StatelessWidget {
       overflow: overflow, // Apply specified overflow behavior.
       style: TextStyle(
         color: color,
-        fontWeight: FontWeight.w400,
+        fontWeight: weight,
         fontSize: size,
-        fontFamily: 'Urbanist',
+        fontFamily: 'Josefin Sans',
       ),
     );
   }
