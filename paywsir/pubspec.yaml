@@ -50,8 +50,8 @@ flutter:
   fonts:
      - family: Urbanist
        fonts:
-         - asset: paywsir/assets/font/Urbanist-Black.ttf
-         - asset: paywsir/assets/font/Urbanist-BoldItalic.ttf
-         - asset: paywsir/assets/font/Urbanist-Bold.ttf
-         - asset: paywsir/assets/font/Urbanist-BlackItalic.ttf
+         - asset: assets/font/Urbanist-Black.ttf
+         - asset: assets/font/Urbanist-BoldItalic.ttf
+         - asset: assets/font/Urbanist-Bold.ttf
+         - asset: assets/font/Urbanist-BlackItalic.ttf
 

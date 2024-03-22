@@ -10,11 +10,11 @@ class splashScreen extends StatefulWidget {
 class _splashScreenState extends State<splashScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _firsScreen(),);
+    return Scaffold(body: _firstScreen(),);
   }
 }
 
 
-Widget _firsScreen() {
+Widget _firstScreen() {
   return Container();
 }
