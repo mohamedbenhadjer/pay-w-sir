@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paywsir/screens/intro.dart';
 import 'package:paywsir/utils/colors.dart';
 import 'package:paywsir/widgets/bigText.dart';
@@ -7,7 +8,6 @@ import 'package:paywsir/widgets/smallText.dart';
 import 'package:paywsir/screens/loadingPage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:math' as math;
-
 
 class loadingPage extends StatefulWidget {
   const loadingPage({super.key});
@@ -51,31 +51,12 @@ Widget _loadingScreen(BuildContext context) {
       child: Stack(
         children: [
           Positioned(
-            top: _deviceheight * -0.1051502145922747,
+            top: _deviceheight * -0.01,
             right: _devicewidth * 0.6302325581395349,
-            child: Transform(
-              transform: Matrix4.identity()
-                ..translate(0.0, 0.0)
-                ..rotateZ(0.51),
-              child: Container(
-                width: 150,
-                height: 195.76,
-                decoration: ShapeDecoration(
-                  color: Colors.white,
-                  shape: RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.only(bottomRight: Radius.circular(50)),
-                  ),
-                  shadows: [
-                    BoxShadow(
-                      color: Color(0x3F000000),
-                      blurRadius: 20,
-                      offset: Offset(0, 4),
-                      spreadRadius: 0,
-                    )
-                  ],
-                ),
-              ),
+            child: SvgPicture.asset(
+              "assets/images/Rectangle 4234.svg",
+              width: _devicewidth * 0.4558139534883721,
+              height: _deviceheight * 0.1609442060085837,
             ),
           ),
           Positioned(
@@ -349,60 +330,14 @@ Widget _loadingScreen(BuildContext context) {
                 ),
               )),
           Positioned(
-            top: _deviceheight * 0.3626609442060086,
-            left: _devicewidth * 0.413953488372093,
-            child: SizedBox(
-              width: _devicewidth * 0.0883720930232558,
-              height: _deviceheight * 0.127906976744186,
-              child: BigText(
-                text: "P",
-                size: _devicewidth * 0.127906976744186,
-              ),
+            top: _deviceheight * 0.3401287553648069,
+            left: _devicewidth * 0.3767441860465116,
+            child: SvgPicture.asset(
+              "assets/images/blueLogo.svg",
+              width: _devicewidth * 0.2627906976744186,
+              height: _deviceheight * 0.1309012875536481,
             ),
           ),
-          Positioned(
-            top: _deviceheight * 0.3594420600858369,
-            left: _devicewidth * 0.5046511627906977,
-            child: Image.asset(
-              "assets/images/Vector 10.png",
-              width: _devicewidth * 0.1,
-              height: _deviceheight * 0.08,
-            ),
-          ),
-          Positioned(
-              top: _deviceheight * 0.4334763948497854,
-              left: _devicewidth * 0.3767441860465116,
-              child: Row(
-                children: [
-                  BigText(
-                    text: "Pay",
-                    color: Colors.white,
-                    size: _deviceheight * 0.0343347639484979,
-                  ),
-                  Column(
-                    children: [
-                      SizedBox(
-                        height: _deviceheight * 0.016,
-                      ),
-                      SmallText(
-                        text: "&",
-                        size: _deviceheight * 0.0214592274678112,
-                      ),
-                    ],
-                  ),
-                  Row(
-                    children: [
-                      SizedBox(
-                        width: _devicewidth * 0.01,
-                      ),
-                      BigText(
-                        text: "Sir",
-                        size: _deviceheight * 0.0343347639484979,
-                      ),
-                    ],
-                  )
-                ],
-              )),
           Positioned(
               top: _deviceheight * 0.8562231759656652,
               left: _devicewidth * 0.6906976744186047,

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:paywsir/screens/intro.dart';
+import 'package:paywsir/screens/loadingPage.dart';
+import 'package:paywsir/screens/onBoarding.dart';
 import 'package:paywsir/screens/splashScreen.dart';
 
 void main() {
@@ -19,7 +22,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: splashScreen(),
+      home:splashScreen(),
     );
   }
 }

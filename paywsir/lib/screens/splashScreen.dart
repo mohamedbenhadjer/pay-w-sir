@@ -90,9 +90,16 @@ Widget _firstScreen(BuildContext context) {
                     SizedBox(
                       width: _devicewidth * 0.01,
                     ),
-                    BigText(
-                      text: "Sir",
-                      size: _deviceheight * 0.0343347639484979,
+                    Column(
+                      children: [
+                        SizedBox(
+                          height: _deviceheight * 0.008,
+                        ),
+                        BigText(
+                          text: "Sir",
+                          size: _deviceheight * 0.0343347639484979,
+                        ),
+                      ],
                     ),
                   ],
                 )

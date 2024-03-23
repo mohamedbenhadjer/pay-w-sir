@@ -12,6 +12,7 @@ class BigText extends StatelessWidget {
   // Font size of the text. Default is 20.
   double size;
   FontWeight? weight;
+
   // Text overflow behavior. Default is ellipsis.
   TextOverflow overflow;
 
