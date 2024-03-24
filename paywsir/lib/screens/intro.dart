@@ -74,12 +74,12 @@ Widget _intro(BuildContext context) {
               );},
               child: SmallText(
                 text: "الــتــالــي",
-                weight: FontWeight.w800,
-                size: 15,
+                weight: FontWeight.w900,
+                size: 14,
               ),
             ),
           ),
-        )
+        ),
       ],
     ),
   );

@@ -38,7 +38,7 @@ class BigText extends StatelessWidget {
         color: color,
         fontWeight: weight,
         fontSize: size,
-        fontFamily: 'Josefin Sans',
+        fontFamily: 'Urbanist',
       ),
     );
   }

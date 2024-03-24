@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paywsir/utils/colors.dart';
 import 'package:paywsir/widgets/bigText.dart';
 import 'package:paywsir/widgets/smallText.dart';
@@ -44,67 +45,14 @@ Widget _firstScreen(BuildContext context) {
     child: Stack(
       children: [
         Positioned(
-          top: _deviceheight * 0.4570815450643777,
-          left: _devicewidth * 0.413953488372093,
-          child: SizedBox(
-            width: _devicewidth * 0.0883720930232558,
-            height: _deviceheight * 0.127906976744186,
-            child: BigText(
-              text: "P",
-              size: _devicewidth * 0.127906976744186,
-            ),
+          top: _deviceheight * 0.434549356223176,
+          right: _devicewidth * 0.3813953488372093,
+          child: SvgPicture.asset(
+            "assets/images/blueLogo.svg",
+            width: _devicewidth * 0.2627906976744186,
+            height: _deviceheight * 0.1309012875536481,
           ),
         ),
-        Positioned(
-          top: _deviceheight * 0.4570815450643777,
-          left: _devicewidth * 0.5046511627906977,
-          child: Image.asset(
-            "assets/images/Vector 10.png",
-            width: _devicewidth * 0.1,
-            height: _deviceheight * 0.08,
-          ),
-        ),
-        Positioned(
-            top: _deviceheight * 0.5278969957081545,
-            left: _devicewidth * 0.3767441860465116,
-            child: Row(
-              children: [
-                BigText(
-                  text: "Pay",
-                  color: Colors.white,
-                  size: _deviceheight * 0.0343347639484979,
-                ),
-                Column(
-                  children: [
-                    SizedBox(
-                      height: _deviceheight * 0.016,
-                    ),
-                    SmallText(
-                      text: "&",
-                      size: _deviceheight * 0.0214592274678112,
-                    ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    SizedBox(
-                      width: _devicewidth * 0.01,
-                    ),
-                    Column(
-                      children: [
-                        SizedBox(
-                          height: _deviceheight * 0.008,
-                        ),
-                        BigText(
-                          text: "Sir",
-                          size: _deviceheight * 0.0343347639484979,
-                        ),
-                      ],
-                    ),
-                  ],
-                )
-              ],
-            )),
       ],
     ),
   );
