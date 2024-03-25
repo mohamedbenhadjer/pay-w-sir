@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paywsir/screens/onBoarding.dart';
+import 'package:paywsir/screens/welcomeScreen.dart';
 import 'package:paywsir/utils/colors.dart';
 import 'package:paywsir/widgets/bigText.dart';
 import 'package:paywsir/widgets/smallText.dart';
-
 
 class introScreen extends StatelessWidget {
   const introScreen({super.key});
@@ -68,10 +68,14 @@ Widget _intro(BuildContext context) {
                 foregroundColor: Colors.black,
                 textStyle: const TextStyle(fontSize: 18),
               ),
-              onPressed: () {Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => onBoarding()),
-              );},
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (_) => onBoarding(),
+                  ),
+                );
+              },
               child: SmallText(
                 text: "الــتــالــي",
                 weight: FontWeight.w900,

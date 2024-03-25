@@ -99,8 +99,8 @@ class _onBoardingState extends State<onBoarding> {
                           );
                         }
                         _controller.nextPage(
-                          duration: Duration(milliseconds: 100),
-                          curve: Curves.bounceIn,
+                          duration: Duration(milliseconds: 200),
+                          curve: Curves.easeIn,
                         );
                       },
                       child: Row(
@@ -110,7 +110,9 @@ class _onBoardingState extends State<onBoarding> {
                             width: _devicewidth * 0.09,
                           ),
                           SmallText(
-                            text: currentIndex == contents.length - 1 ? "Continue" : "الــتــالــي",
+                            text: currentIndex == contents.length - 1
+                                ? "ابــدأ"
+                                : "الــتــالــي",
                             weight: FontWeight.w900,
                             size: 14,
                           ),
@@ -134,9 +136,11 @@ class _onBoardingState extends State<onBoarding> {
                         textStyle: const TextStyle(fontSize: 18),
                       ),
                       onPressed: () {
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
-                          MaterialPageRoute(builder: (context) => onBoarding()),
+                          MaterialPageRoute(
+                            builder: (_) => welcomeScreen(),
+                          ),
                         );
                       },
                       child: SmallText(
@@ -155,7 +159,19 @@ class _onBoardingState extends State<onBoarding> {
                       contents[i].image,
                       width: 250,
                       height: 250,
-                    ))
+                    )),
+                Positioned(
+                  top: _deviceheight * 0.7392703862660944,left: _devicewidth * 0.4372093023255814,
+                  child: Container(
+                    child: Row(
+                      children: List.generate(
+                        contents.length,
+                            (index) => buildDot(index, context),
+                      ),
+                    ),
+                  ),
+
+                )
               ],
             );
           }),
@@ -169,4 +185,17 @@ class _onBoardingState extends State<onBoarding> {
       curve: Curves.easeIn,
     );
   }
+
+  Container buildDot(int index, BuildContext context) {
+    return Container(
+      height: 10,
+      width:  currentIndex == (2 - index) ? 25 : 10,
+      margin: EdgeInsets.only(left: index == 0 ? 0 : 5), // Adjust margin for right alignment
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(20),
+        color: currentIndex == (2 - index) ? Colors.black : Colors.white, // Highlight current index
+      ),
+    );
+  }
+
 }
