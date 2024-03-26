@@ -33,8 +33,8 @@ class _loginScreenState extends State<loginScreen> {
 
     void _handleLogin() async {
       try {
-        UserCredential userCredential = await _auth
-            .signInWithEmailAndPassword(email: _email, password: _password);
+        UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+            email: _email, password: _password);
         print("User Logged in succesfully: ${userCredential.user!.email}");
         Navigator.pushReplacement(
           context,
@@ -43,14 +43,15 @@ class _loginScreenState extends State<loginScreen> {
           ),
         );
       } catch (e) {
-
         print("Error during registeration: $e");
       }
     }
 
-    return Scaffold(resizeToAvoidBottomInset: false,
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
-        child: Form(key: _formKey,
+        child: Form(
+          key: _formKey,
           child: Stack(
             children: [
               Positioned(
@@ -118,7 +119,9 @@ class _loginScreenState extends State<loginScreen> {
                               hintText: "email.exemple@mail.com",
                               border: InputBorder.none,
                             ),
-                            onChanged: (value) {_email=value;},
+                            onChanged: (value) {
+                              _email = value;
+                            },
                           ),
                         ),
                         Icon(
@@ -189,7 +192,9 @@ class _loginScreenState extends State<loginScreen> {
                                         },
                                       ),
                                     ),
-                                    onChanged: (value) {_password=value;},
+                                    onChanged: (value) {
+                                      _password = value;
+                                    },
                                   );
                                 },
                               ),
@@ -219,9 +224,11 @@ class _loginScreenState extends State<loginScreen> {
                         ],
                       ),
                       child: TextButton(
-                          onPressed: () {if (_formKey.currentState!.validate()) {
-                            _handleLogin();
-                          }},
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _handleLogin();
+                            }
+                          },
                           child: BigText(
                             text: " تسجيل الدخول",
                             color: Colors.white,
@@ -250,7 +257,6 @@ class _loginScreenState extends State<loginScreen> {
                   )),
               Positioned(
                   top: _deviceheight * 0.1635622317596567,
-
                   right: _devicewidth * 0.2562790697674419,
                   child: BigText(
                     text: "تسجيل الدخول",
@@ -265,5 +271,3 @@ class _loginScreenState extends State<loginScreen> {
     );
   }
 }
-
-

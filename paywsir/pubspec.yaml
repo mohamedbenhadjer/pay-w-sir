@@ -22,6 +22,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   firebase_core: ^2.27.1
   firebase_auth: ^4.17.9
+  flip_card: ^0.7.0
   
 
 dev_dependencies:
@@ -71,4 +72,15 @@ flutter:
      - family: Josefin Sans
        fonts:
          - asset: assets/font/JosefinSans-BoldItalic.ttf
+
+
+
+     - family: Digital Numbers
+       fonts:
+         - asset: assets/font/DigitalNumbers-Regular.ttf
+
+
+     - family: Inter
+       fonts:
+         - asset: assets/font/Inter-Black.ttf
 

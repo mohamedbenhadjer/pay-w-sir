@@ -13,7 +13,6 @@ class signupScreen extends StatefulWidget {
 }
 
 class _signupScreenState extends State<signupScreen> {
-
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passController = TextEditingController();
@@ -22,8 +21,6 @@ class _signupScreenState extends State<signupScreen> {
   @override
   Widget build(BuildContext context) {
     final FirebaseAuth _auth = FirebaseAuth.instance;
-
-
 
     String _email = "";
     String _password = "";
@@ -45,7 +42,6 @@ class _signupScreenState extends State<signupScreen> {
         print("Error during registeration: $e");
       }
     }
-
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -81,7 +77,6 @@ class _signupScreenState extends State<signupScreen> {
             Positioned(
                 top: _deviceheight * 0.6884549356223176,
                 left: _devicewidth * 0.3809302325581395,
-
                 child: SvgPicture.asset(
                   "assets/images/whiteLogo.svg",
                   height: _deviceheight * 0.0736480686695279,
@@ -121,8 +116,8 @@ class _signupScreenState extends State<signupScreen> {
                             hintText: "email.exemple@mail.com",
                             border: InputBorder.none,
                           ),
-                          onChanged: (value) {_email =_emailController.text;
-
+                          onChanged: (value) {
+                            _email = _emailController.text;
                           },
                         ),
                       ),
@@ -167,7 +162,8 @@ class _signupScreenState extends State<signupScreen> {
                         children: [
                           SizedBox(width: _devicewidth * 0.0395348837209302),
                           Expanded(
-                              child: TextField(controller: _passController,
+                              child: TextField(
+                            controller: _passController,
                             keyboardType: TextInputType.visiblePassword,
                             obscureText: !_showPassword,
                             decoration: InputDecoration(
@@ -197,7 +193,7 @@ class _signupScreenState extends State<signupScreen> {
                     ),
                   ),
                   SizedBox(
-                    height: _deviceheight *0.0695278969957082,
+                    height: _deviceheight * 0.0695278969957082,
                   ),
                   Container(
                     width: _devicewidth * 0.472093023255814,
@@ -248,7 +244,6 @@ class _signupScreenState extends State<signupScreen> {
                   weight: FontWeight.w900,
                   size: 16,
                 )),
-
             Positioned(
                 top: _deviceheight * 0.1635622317596567,
                 right: _devicewidth * 0.2962790697674419,
