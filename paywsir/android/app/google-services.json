@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "1060838827175",
+    "project_id": "paywsir",
+    "storage_bucket": "paywsir.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1060838827175:android:21c8ad09ee747c7c316782",
+        "android_client_info": {
+          "package_name": "com.example.paywsir"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1060838827175-tbq7s66s17vjf6jtuq7ru7o1hdg5vgf5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCflbf6YAT9t2ZaoB8VjTto5njMQFzzTrk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1060838827175-tbq7s66s17vjf6jtuq7ru7o1hdg5vgf5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1060838827175-98jhj8u6me3ppahbg1r58tp2brgifa29.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.paywsir.RunnerTests"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

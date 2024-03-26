@@ -1,11 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:paywsir/screens/intro.dart';
 import 'package:paywsir/screens/loadingPage.dart';
+import 'package:paywsir/screens/loginScreen.dart';
 import 'package:paywsir/screens/onBoarding.dart';
+import 'package:paywsir/screens/signupScreen.dart';
 import 'package:paywsir/screens/splashScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(const MyApp());
+
+
+void main() async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
