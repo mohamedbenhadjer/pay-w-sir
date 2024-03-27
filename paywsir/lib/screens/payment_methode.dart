@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paywsir/screens/chose.dart';
 import 'package:paywsir/screens/paymentScreeen.dart';
+
 import 'package:paywsir/screens/payment_screen1.dart';
 import 'package:paywsir/widgets/smallText.dart';
 
@@ -29,38 +30,17 @@ class PaymentMethode extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => Chose()),
                   );
                 },
-                icon: Icon(
-                  Icons.arrow_right_alt_sharp,
-                  color: Color(0xFF2743FD),
-                  size: 30,
-                ),
+                icon: SvgPicture.asset('assets/images/Right-Arrow 3.svg'),
               ),
             ),
             Positioned(
-              left: _devicewidth * 0.43,
-              top: _deviceheight * 0.13,
-              child: Text(
-                'P',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 50,
-                  fontStyle: FontStyle.italic,
-                  fontFamily: 'Josefin Sans',
-                  fontWeight: FontWeight.w700,
-                  height: 0,
-                ),
-              ),
-            ),
-            Positioned(
-              left: _devicewidth * 0.52,
-              top: _deviceheight * 0.13,
-              child: SvgPicture.asset(
-                "assets/images/Vector 11.svg",
-                width: _devicewidth * 0.0651162790697674,
-                height: _deviceheight * 0.0472103004291845,
-              ),
-            ),
+                left: _devicewidth * 0.4,
+                top: _deviceheight * 0.12,
+                child: SvgPicture.asset(
+                  "assets/images/whiteLogo.svg",
+                  height: _deviceheight * 0.0736480686695279,
+                  width: _devicewidth * 0.1804651162790698,
+                )),
             Positioned(
               left: _devicewidth * 0.1008139534883721,
               top: _deviceheight * 0.2327896995708155,
@@ -90,7 +70,7 @@ class PaymentMethode extends StatelessWidget {
                   color: Color(0xFF2743FD),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(width: 2, color: Color(0xFF2743FD)),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: TextButton(
@@ -123,7 +103,7 @@ class PaymentMethode extends StatelessWidget {
                   color: Color(0xFF2743FD),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(width: 2, color: Color(0xFF2743FD)),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(30),
                   ),
                 ),
                 child: TextButton(

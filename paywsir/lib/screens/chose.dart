@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:paywsir/screens/d1.dart';
+import 'package:paywsir/screens/d2.dart';
+import 'package:paywsir/screens/d3.dart';
+import 'package:paywsir/screens/d4.dart';
 import 'package:paywsir/screens/infos.dart';
 import 'package:paywsir/screens/payment_methode.dart';
 import 'package:paywsir/widgets/smallText.dart';
@@ -28,38 +32,17 @@ class Chose extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => InfosScreen()),
                   );
                 },
-                icon: Icon(
-                  Icons.arrow_right_alt_sharp,
-                  color: Color(0xFF2743FD),
-                  size: 30,
-                ),
+                icon: SvgPicture.asset('assets/images/Right-Arrow 3.svg'),
               ),
             ),
             Positioned(
-              left: _devicewidth * 0.43,
-              top: _deviceheight * 0.13,
-              child: Text(
-                'P',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 50,
-                  fontStyle: FontStyle.italic,
-                  fontFamily: 'Josefin Sans',
-                  fontWeight: FontWeight.w700,
-                  height: 0,
-                ),
-              ),
-            ),
-            Positioned(
-              left: _devicewidth * 0.52,
-              top: _deviceheight * 0.13,
-              child: SvgPicture.asset(
-                "assets/images/Vector 11.svg",
-                width: _devicewidth * 0.0651162790697674,
-                height: _deviceheight * 0.0472103004291845,
-              ),
-            ),
+                left: _devicewidth * 0.4,
+                top: _deviceheight * 0.12,
+                child: SvgPicture.asset(
+                  "assets/images/whiteLogo.svg",
+                  height: _deviceheight * 0.0736480686695279,
+                  width: _devicewidth * 0.1804651162790698,
+                )),
             Positioned(
               left: _devicewidth * 0.1008139534883721,
               top: _deviceheight * 0.2327896995708155,
@@ -89,8 +72,16 @@ class Chose extends StatelessWidget {
                   color: Color(0xFF2743FD),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(width: 2, color: Color(0xFF2743FD)),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(30),
                   ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 20,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
                 ),
                 child: TextButton(
                   style: TextButton.styleFrom(
@@ -100,7 +91,7 @@ class Chose extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PaymentMethode()),
+                      MaterialPageRoute(builder: (context) => D1()),
                     );
                   },
                   child: SmallText(
@@ -122,8 +113,16 @@ class Chose extends StatelessWidget {
                   color: Color(0xFF2743FD),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(width: 2, color: Color(0xFF2743FD)),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(30),
                   ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 20,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
                 ),
                 child: TextButton(
                   style: TextButton.styleFrom(
@@ -133,7 +132,7 @@ class Chose extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PaymentMethode()),
+                      MaterialPageRoute(builder: (context) => D2()),
                     );
                   },
                   child: SmallText(
@@ -155,8 +154,16 @@ class Chose extends StatelessWidget {
                   color: Color(0xFF2743FD),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(width: 2, color: Color(0xFF2743FD)),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(30),
                   ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 20,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
                 ),
                 child: TextButton(
                   style: TextButton.styleFrom(
@@ -166,7 +173,7 @@ class Chose extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PaymentMethode()),
+                      MaterialPageRoute(builder: (context) => D3()),
                     );
                   },
                   child: SmallText(
@@ -188,8 +195,16 @@ class Chose extends StatelessWidget {
                   color: Color(0xFF2743FD),
                   shape: RoundedRectangleBorder(
                     side: BorderSide(width: 2, color: Color(0xFF2743FD)),
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(30),
                   ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 20,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
                 ),
                 child: TextButton(
                   style: TextButton.styleFrom(
@@ -199,7 +214,7 @@ class Chose extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PaymentMethode()),
+                      MaterialPageRoute(builder: (context) => D4()),
                     );
                   },
                   child: SmallText(
