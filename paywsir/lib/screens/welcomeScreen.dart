@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:paywsir/screens/chose.dart';
 import 'package:paywsir/screens/loginScreen.dart';
 import 'package:paywsir/screens/paymentScreeen.dart';
 import 'package:paywsir/screens/signupScreen.dart';
@@ -79,7 +80,7 @@ Widget _welcomeScreen(BuildContext context) {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => paymentScreen(),
+                          builder: (_) => Chose(),
                         ),
                       );
                     },
