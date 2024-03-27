@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paywsir/screens/chose.dart';
-import 'package:paywsir/screens/payment_screen.dart';
+import 'package:paywsir/screens/paymentScreeen.dart';
 import 'package:paywsir/screens/payment_screen1.dart';
 import 'package:paywsir/widgets/smallText.dart';
 
@@ -101,7 +101,7 @@ class PaymentMethode extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PaymentScreen()),
+                      MaterialPageRoute(builder: (context) => paymentScreen()),
                     );
                   },
                   child: SmallText(
