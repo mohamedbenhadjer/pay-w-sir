@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:paywsir/screens/infos.dart';
+import 'package:paywsir/utils/colors.dart';
 
 class CardAlertDialog extends StatelessWidget {
   const CardAlertDialog({
@@ -25,7 +28,12 @@ class CardAlertDialog extends StatelessWidget {
           top: -40.0,
           child: InkResponse(
             onTap: () {
-              Navigator.of(context).pop();
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (_) => InfosScreen(),
+                ),
+              );
             },
             child: const CircleAvatar(
               backgroundColor: Colors.green,
@@ -35,7 +43,7 @@ class CardAlertDialog extends StatelessWidget {
         ),
         Column(
           mainAxisSize: MainAxisSize.min,
-          children: const [
+          children: [
             Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(
@@ -57,6 +65,47 @@ class CardAlertDialog extends StatelessWidget {
                 '!نحن دوما في خدمتكم',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                 textAlign: TextAlign.center,
+              ),
+            ),
+            Container(
+              width: 250,
+              height: 57,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(28),
+                  gradient: LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: [Color(0xff4960f9), Color(0xff1433ff)],
+                  )),
+              child: ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  foregroundColor: Colors.white,
+                  backgroundColor: appColors.mainColor,
+                ),
+                onPressed: () {},
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: Text("تحميل وصل الدفع",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                          )),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    SvgPicture.asset(
+                      "assets/images/download.svg",
+                      width: 25,
+                    )
+                  ],
+                ),
               ),
             ),
           ],

@@ -20,10 +20,10 @@ class PaymentScreen1 extends StatelessWidget {
           children: [
             Positioned(
               left: _devicewidth * 0.81395348837,
-              top: _deviceheight * 0.04291845493,
+              top: _deviceheight * 0.06291845493,
               child: IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => PaymentMethode()),
                   );
@@ -58,7 +58,7 @@ class PaymentScreen1 extends StatelessWidget {
                     textStyle: const TextStyle(fontSize: 18),
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => PhoneNumber()),
                     );

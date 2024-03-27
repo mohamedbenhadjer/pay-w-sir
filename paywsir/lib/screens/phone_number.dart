@@ -22,7 +22,7 @@ class PhoneNumber extends StatelessWidget {
               top: _deviceheight * 0.0536480686695279,
               child: IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => PaymentMethode()),
                   );

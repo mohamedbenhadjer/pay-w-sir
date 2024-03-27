@@ -3,7 +3,6 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paywsir/screens/chose.dart';
 import 'package:paywsir/screens/paymentScreeen.dart';
-
 import 'package:paywsir/screens/payment_screen1.dart';
 import 'package:paywsir/widgets/smallText.dart';
 
@@ -25,12 +24,12 @@ class PaymentMethode extends StatelessWidget {
               top: _deviceheight * 0.04291845493,
               child: IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => Chose()),
                   );
                 },
-                icon: SvgPicture.asset('assets/images/Right-Arrow 3.svg'),
+                icon: SvgPicture.asset('assets/images/Right-Arrow 2.svg'),
               ),
             ),
             Positioned(
@@ -79,7 +78,7 @@ class PaymentMethode extends StatelessWidget {
                     textStyle: const TextStyle(fontSize: 18),
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => paymentScreen()),
                     );
@@ -112,7 +111,7 @@ class PaymentMethode extends StatelessWidget {
                     textStyle: const TextStyle(fontSize: 18),
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => PaymentScreen1()),
                     );

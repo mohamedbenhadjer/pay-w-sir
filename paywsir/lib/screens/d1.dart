@@ -23,7 +23,7 @@ class D1 extends StatelessWidget {
               top: _deviceheight * 0.04291845493,
               child: IconButton(
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => Chose()),
                   );
@@ -58,7 +58,7 @@ class D1 extends StatelessWidget {
                     textStyle: const TextStyle(fontSize: 18),
                   ),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(builder: (context) => PaymentMethode()),
                     );

@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -5,6 +7,8 @@ import 'package:paywsir/screens/signUpScreen.dart';
 import 'package:paywsir/utils/colors.dart';
 import 'package:paywsir/widgets/bigText.dart';
 import 'package:paywsir/widgets/smallText.dart';
+
+import 'infos.dart';
 
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key});
@@ -17,8 +21,66 @@ class _homeScreenState extends State<homeScreen> {
   @override
   Widget build(BuildContext context) {
     double _devicewidth = MediaQuery.of(context).size.width;
-    double _deviceheight = MediaQuery.of(context).size.height;
+    var _currPageValue = 0.0;
+    double _scaleFactor = 0.8;
+    PageController pageController = PageController(viewportFraction: 0.65);
+    @override
+    void initState() {
+      super.initState();
+      pageController.addListener(() {
+        setState(() {
+          _currPageValue = pageController.page!;
+        });
+      });
+    }
+
+    @override
+    void dispose() {
+      pageController.dispose();
+    }
+
+    double _deviceheight = MediaQuery.of(context).size.height;final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+    Future<DocumentSnapshot<Map<String, dynamic>>> getCarInfo() async {
+      final currentUser = FirebaseAuth.instance.currentUser;
+      if (currentUser != null) {
+        // Get the user ID
+        final uid = currentUser.uid;
+
+        // Access the car document based on the user ID
+        final docRef = firestore.collection("users").doc(uid);
+        final snapshot = await docRef.get();
+        return snapshot;
+      } else {
+        // Handle the case where no user is signed in
+        print("No user signed in");
+        return Future.value(null); // Return null or handle it differently
+      }
+    }String _email = '';
+    String _name = '';
+    String _carNumber = '';
+    String _password = '';
+    String _lisenceNumber = '';
+
+    Future<void> _displayCarInfo() async {
+      final snapshot = await getCarInfo();
+      if (snapshot.exists) {
+        final usersData = snapshot.data();
+        setState(() {
+          _name = usersData?['Name'] ;
+          _lisenceNumber = usersData?['Lisence Number'];
+          _carNumber = usersData?['Car Number'];
+        });
+      }
+    }
+
+
+
+
+
+
     var bottomNavItems;
+
     return Scaffold(
       body: Container(
           child: Stack(
@@ -135,6 +197,19 @@ class _homeScreenState extends State<homeScreen> {
                 size: 12,
                 weight: FontWeight.w900,
                 color: Colors.white,
+              )),
+          Positioned(
+              top: _deviceheight * 0.5633047210300429,
+              right: -0.001,
+              child: Container(
+                height: _deviceheight * 0.305793991416309,
+                width: _devicewidth,
+                child: PageView.builder(
+                    controller: pageController,
+                    itemCount: 5,
+                    itemBuilder: (context, position) {
+                      return _buildPageItem(position);
+                    }),
               ))
         ],
       )),
@@ -152,9 +227,14 @@ class _homeScreenState extends State<homeScreen> {
                 width: _devicewidth * 0.0581395348837209,
               ),
               IconButton(
-                  onPressed: () {},
-                  icon: SvgPicture.asset(
-                    "assets/images/user.svg",
+                  onPressed: () {Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => InfosScreen(),
+                    ),
+                  );},
+                  icon: Image.asset(
+                    "assets/images/card.png",color: Colors.white,
                     width: _devicewidth * 0.086046511627907,
                     height: _deviceheight * 0.0375536480686695,
                   )),
@@ -192,12 +272,7 @@ class _homeScreenState extends State<homeScreen> {
                 width: _devicewidth * 0.059302325581395,
               ),
               IconButton(
-                  onPressed: () {Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => signUpScreen(),
-                    ),
-                  );},
+                  onPressed: () {},
                   icon: SvgPicture.asset(
                     "assets/images/signout.svg",
                     width: _devicewidth * 0.086046511627907,
@@ -205,6 +280,110 @@ class _homeScreenState extends State<homeScreen> {
                   ))
             ],
           )),
+    );
+  }
+
+  Widget _buildPageItem(int index) {
+    double _devicewidth = MediaQuery.of(context).size.width;
+    Matrix4 matrix = new Matrix4.identity();
+    var _currPageValue = 0.0;
+    double _scaleFactor = 0.8;
+    if (index == _currPageValue.floor()) {
+      var currScale = 1 - (_currPageValue - index) * (1 - _scaleFactor);
+    } else if (index == _currPageValue.floor() + 1) {
+      var currScale =
+          _scaleFactor + (_currPageValue - index + 1) * (1 - _scaleFactor);
+    }
+
+    return Stack(
+      children: [
+        Container(
+          height: 295,
+          width: 235,
+          margin: EdgeInsets.only(left: 5, right: 5),
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(30),
+              color: appColors.mainColor),
+        ),
+        Align(
+          alignment: Alignment.bottomCenter,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 15,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 60,
+                  ),
+                  BigText(
+                    text: "مخالفة من الدرجة 1",
+                    color: Colors.white,
+                    size: 20,
+                    weight: FontWeight.w600,
+                  ),
+                ],
+              ),
+              Text("22/03/2024",
+                  style: TextStyle(
+                      fontSize: 13,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white)),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 170,
+                  ),
+                  Text("المكان",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white)),
+                ],
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 22,
+                  ),
+                  Image.asset(
+                    "assets/images/map.png",
+                    width: 203,
+                    height: 94,
+                  )
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 20,
+                  ),
+                  Text(" دج 2000.00",
+                      style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white)),
+                  SizedBox(
+                    width: 55,
+                  ),
+                  SvgPicture.asset(
+                    "assets/images/wrong.svg",
+                    width: 35.52083206176758,
+                    height: 30.20833396911621,
+                  )
+                ],
+              )
+            ],
+          ),
+        )
+      ],
     );
   }
 }

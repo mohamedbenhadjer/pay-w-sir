@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paywsir/screens/chose.dart';
+import 'package:paywsir/screens/payment_methode.dart';
+import 'package:paywsir/screens/welcomeScreen.dart';
 import 'package:paywsir/widgets/smallText.dart';
 
 class InfosScreen extends StatelessWidget {
@@ -21,7 +23,9 @@ class InfosScreen extends StatelessWidget {
             left: _devicewidth * 0.81395348837,
             top: _deviceheight * 0.04291845493,
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {Navigator.pushReplacement(context, MaterialPageRoute(
+                builder: (_) => welcomeScreen(),
+              ),);},
               icon: SvgPicture.asset('assets/images/Right-Arrow 3.svg'),
             ),
           ),
@@ -71,7 +75,7 @@ class InfosScreen extends StatelessWidget {
                   textStyle: const TextStyle(fontSize: 18),
                 ),
                 onPressed: () {
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(builder: (context) => Chose()),
                   );

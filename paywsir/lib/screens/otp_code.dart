@@ -5,6 +5,8 @@ import 'package:paywsir/screens/homeScreen.dart';
 
 import 'package:paywsir/screens/phone_number.dart';
 
+import '../components/card_alert_dialog.dart';
+
 class OtpCode extends StatelessWidget {
   const OtpCode({super.key});
 
@@ -125,10 +127,12 @@ class OtpCode extends StatelessWidget {
                     textStyle: const TextStyle(fontSize: 18),
                   ),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => homeScreen()),
-                    );
+                    Future.delayed(const Duration(milliseconds: 300), () {
+                      showDialog(
+                          context: context,
+                          builder: (context) => const CardAlertDialog());
+
+                    });
                   },
                   child: Text(
                     'تأكيد',

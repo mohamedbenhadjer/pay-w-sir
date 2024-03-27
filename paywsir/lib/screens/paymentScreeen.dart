@@ -6,6 +6,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:paywsir/screens/payment_methode.dart';
+import 'package:paywsir/screens/phone_number.dart';
+import 'package:paywsir/screens/welcomeScreen.dart';
 import 'package:paywsir/utils/colors.dart';
 import '../components/card_alert_dialog.dart';
 import '../components/card_input_formatter.dart';
@@ -13,6 +16,7 @@ import '../components/card_month_input_formatter.dart';
 import '../components/master_card.dart';
 import '../components/my_painter.dart';
 import '../constants.dart';
+import '../widgets/bigText.dart';
 
 class paymentScreen extends StatefulWidget {
   const paymentScreen({Key? key}) : super(key: key);
@@ -23,10 +27,8 @@ class paymentScreen extends StatefulWidget {
 
 class _paymentScreenState extends State<paymentScreen> {
   final TextEditingController cardNumberController = TextEditingController();
-  final TextEditingController nameController =
-      TextEditingController();
-  final TextEditingController passwordController =
-      TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final TextEditingController carNumberController = TextEditingController();
 
   final FlipCardController flipCardController = FlipCardController();
@@ -40,7 +42,27 @@ class _paymentScreenState extends State<paymentScreen> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               const SizedBox(height: 30),
-              SvgPicture.asset("assets/images/whiteLogo.svg"),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 161,
+                  ),
+                  SvgPicture.asset("assets/images/whiteLogo.svg"),
+                  SizedBox(
+                    width: 80,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => PaymentMethode(),
+                          ),
+                        );
+                      },
+                      icon: SvgPicture.asset("assets/images/Right-Arrow 2.svg"))
+                ],
+              ),
               const SizedBox(height: 30),
               FlipCard(
                   fill: Fill.fillFront,
@@ -136,7 +158,22 @@ class _paymentScreenState extends State<paymentScreen> {
                       ),
                     ),
                   )),
-              const SizedBox(height: 40),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 265,
+                  ),
+                  BigText(
+                    text: "رقم البطاقة",
+                    weight: FontWeight.w900,
+                    size: 16,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
               Container(
                 height: 55,
                 width: MediaQuery.of(context).size.width / 1.12,
@@ -158,7 +195,7 @@ class _paymentScreenState extends State<paymentScreen> {
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 215,
+                      width: 30,
                     ),
                     Expanded(
                       child: TextFormField(
@@ -167,7 +204,7 @@ class _paymentScreenState extends State<paymentScreen> {
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 15),
-                          hintText: 'رقم البطاقة',
+                          hintText: '       XXXX XXXX XXXX XXXX',
                           hintStyle: TextStyle(
                             color: Colors.grey,
                             fontSize: 16,
@@ -203,7 +240,22 @@ class _paymentScreenState extends State<paymentScreen> {
                   ],
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 10),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 260,
+                  ),
+                  BigText(
+                    text: "الاسم الكامل ",
+                    weight: FontWeight.w900,
+                    size: 16,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
               Container(
                 height: 55,
                 width: MediaQuery.of(context).size.width / 1.12,
@@ -225,7 +277,7 @@ class _paymentScreenState extends State<paymentScreen> {
                 child: Row(
                   children: [
                     SizedBox(
-                      width: 215,
+                      width: 30,
                     ),
                     Expanded(
                       child: TextFormField(
@@ -234,7 +286,7 @@ class _paymentScreenState extends State<paymentScreen> {
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                           contentPadding: EdgeInsets.symmetric(vertical: 15),
-                          hintText: 'الاسم الكامل',
+                          hintText: '             XXXXXXXXXXXXXX',
                           hintStyle: TextStyle(
                               color: Colors.grey,
                               fontSize: 15,
@@ -242,8 +294,8 @@ class _paymentScreenState extends State<paymentScreen> {
                         ),
                         onChanged: (value) {
                           setState(() {
-                            nameController.value =
-                                nameController.value.copyWith(
+                            nameController.value = nameController.value
+                                .copyWith(
                                     text: value,
                                     selection: TextSelection.collapsed(
                                         offset: value.length),
@@ -264,155 +316,192 @@ class _paymentScreenState extends State<paymentScreen> {
                 ),
               ),
               const SizedBox(height: 12),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+              Column(
                 children: [
-                  Container(
-                    height: 55,
-                    width: MediaQuery.of(context).size.width / 2.4,
-                    decoration: ShapeDecoration(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(width: 1, color: Color(0xFF2743FD)),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      shadows: [
-                        BoxShadow(
-                          color: Color(0x3F000000),
-                          blurRadius: 20,
-                          offset: Offset(0, 4),
-                          spreadRadius: 0,
-                        )
-                      ],
-                    ),
-                    child: Row(
+                  Row(
+                    children: [Row(
                       children: [
-                        SizedBox(
-                          width: 30,
+                        SizedBox(width: 45,),
+                        BigText(
+                          text: "تاريخ انتهاء الصلاحية",
+                          weight: FontWeight.w900,
+                          size: 13,
                         ),
-                        Expanded(
-                          child: TextFormField(
-                            controller: passwordController,
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding:
-                                  EdgeInsets.symmetric(vertical: 15),
-                              hintText: 'MM/YY',
-                              hintStyle: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16,
-                              ),
-                            ),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(4),
-                              CardDateInputFormatter(),
-                            ],
-                            onChanged: (value) {
-                              var text =
-                                  value.replaceAll(RegExp(r'\s+\b|\b\s'), ' ');
-                              setState(() {
-                                passwordController.value =
-                                    passwordController.value.copyWith(
-                                        text: text,
-                                        selection: TextSelection.collapsed(
-                                            offset: text.length),
-                                        composing: TextRange.empty);
-                              });
-                            },
-                          ),
-                        ),
-                        Icon(
-                          Icons.calendar_today,
-                          color: Colors.grey,
-                          size: 30,
-                        ),
-                        SizedBox(
-                          width: 15,
-                        )
                       ],
                     ),
+
+                      SizedBox(
+                        width: 65,
+                      ),
+                      BigText(
+                        text: " CVC2/CVV2"
+                            " رقم ",
+                        weight: FontWeight.w900,
+                        size: 13,
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 14),
-                  Container(
-                    height: 55,
-                    width: MediaQuery.of(context).size.width / 2.4,
-                    decoration: ShapeDecoration(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        side: BorderSide(width: 1, color: Color(0xFF2743FD)),
-                        borderRadius: BorderRadius.circular(30),
-                      ),
-                      shadows: [
-                        BoxShadow(
-                          color: Color(0x3F000000),
-                          blurRadius: 20,
-                          offset: Offset(0, 4),
-                          spreadRadius: 0,
-                        )
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          width: 30,
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 55,
+                        width: MediaQuery.of(context).size.width / 2.4,
+                        decoration: ShapeDecoration(
+                          color: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            side:
+                                BorderSide(width: 1, color: Color(0xFF2743FD)),
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          shadows: [
+                            BoxShadow(
+                              color: Color(0x3F000000),
+                              blurRadius: 20,
+                              offset: Offset(0, 4),
+                              spreadRadius: 0,
+                            )
+                          ],
                         ),
-                        Expanded(
-                          child: TextFormField(
-                            controller: carNumberController,
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                              border: InputBorder.none,
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 20, vertical: 15),
-                              hintText: 'CVV',
-                              hintStyle: TextStyle(
-                                color: Colors.grey,
-                                fontSize: 16,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              width: 30,
+                            ),
+                            Expanded(
+                              child: TextFormField(
+                                controller: passwordController,
+                                keyboardType: TextInputType.number,
+                                decoration: const InputDecoration(
+                                  border: InputBorder.none,
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 15),
+                                  hintText: 'MM/YY',
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly,
+                                  LengthLimitingTextInputFormatter(4),
+                                  CardDateInputFormatter(),
+                                ],
+                                onChanged: (value) {
+                                  var text = value.replaceAll(
+                                      RegExp(r'\s+\b|\b\s'), ' ');
+                                  setState(() {
+                                    passwordController.value =
+                                        passwordController.value.copyWith(
+                                            text: text,
+                                            selection: TextSelection.collapsed(
+                                                offset: text.length),
+                                            composing: TextRange.empty);
+                                  });
+                                },
                               ),
                             ),
-                            inputFormatters: [
-                              FilteringTextInputFormatter.digitsOnly,
-                              LengthLimitingTextInputFormatter(3),
-                            ],
-                            onTap: () {
-                              setState(() {
-                                Future.delayed(
-                                    const Duration(milliseconds: 300), () {
-                                  flipCardController.toggleCard();
-                                });
-                              });
-                            },
-                            onChanged: (value) {
-                              setState(() {
-                                int length = value.length;
-                                if (length == 4 ||
-                                    length == 9 ||
-                                    length == 14) {
-                                  cardNumberController.text = '$value ';
-                                  cardNumberController.selection =
-                                      TextSelection.fromPosition(TextPosition(
-                                          offset: value.length + 1));
-                                }
-                              });
-                            },
+                            Icon(
+                              Icons.calendar_today,
+                              color: Colors.grey,
+                              size: 30,
+                            ),
+                            SizedBox(
+                              width: 15,
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(width: 14),
+                      Column(
+                        children: [
+                          Container(
+                            height: 55,
+                            width: MediaQuery.of(context).size.width / 2.4,
+                            decoration: ShapeDecoration(
+                              color: Colors.white,
+                              shape: RoundedRectangleBorder(
+                                side:
+                                    BorderSide(width: 1, color: Color(0xFF2743FD)),
+                                borderRadius: BorderRadius.circular(30),
+                              ),
+                              shadows: [
+                                BoxShadow(
+                                  color: Color(0x3F000000),
+                                  blurRadius: 20,
+                                  offset: Offset(0, 4),
+                                  spreadRadius: 0,
+                                )
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                SizedBox(
+                                  width: 30,
+                                ),
+                                Expanded(
+                                  child: TextFormField(
+                                    controller: carNumberController,
+                                    keyboardType: TextInputType.number,
+                                    decoration: const InputDecoration(
+                                      border: InputBorder.none,
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 20, vertical: 15),
+                                      hintText: 'CVV',
+                                      hintStyle: TextStyle(
+                                        color: Colors.grey,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    inputFormatters: [
+                                      FilteringTextInputFormatter.digitsOnly,
+                                      LengthLimitingTextInputFormatter(3),
+                                    ],
+                                    onTap: () {
+                                      setState(() {
+                                        Future.delayed(
+                                            const Duration(milliseconds: 300), () {
+                                          flipCardController.toggleCard();
+                                        });
+                                      });
+                                    },
+                                    onChanged: (value) {
+                                      setState(() {
+                                        int length = value.length;
+                                        if (length == 4 ||
+                                            length == 9 ||
+                                            length == 14) {
+                                          cardNumberController.text = '$value ';
+                                          cardNumberController.selection =
+                                              TextSelection.fromPosition(
+                                                  TextPosition(
+                                                      offset: value.length + 1));
+                                        }
+                                      });
+                                    },
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.lock,
+                                  color: Colors.grey,
+                                  size: 30,
+                                ),
+                                SizedBox(
+                                  width: 15,
+                                )
+                              ],
+                            ),
                           ),
-                        ),
-                        Icon(
-                          Icons.lock,
-                          color: Colors.grey,
-                          size: 30,
-                        ),
-                        SizedBox(
-                          width: 15,
-                        )
-                      ],
-                    ),
+                        ],
+                      ),
+                    ],
                   ),
                 ],
               ),
-              const SizedBox(height: 20 * 3),
+              const SizedBox(height: 15 * 3),
               ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   foregroundColor: Colors.white,
@@ -425,9 +514,10 @@ class _paymentScreenState extends State<paymentScreen> {
                 ),
                 onPressed: () {
                   Future.delayed(const Duration(milliseconds: 300), () {
-                    showDialog(
-                        context: context,
-                        builder: (context) => const CardAlertDialog());
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => PhoneNumber()),
+                    );
                     carNumberController.clear();
                     passwordController.clear();
                     nameController.clear();
