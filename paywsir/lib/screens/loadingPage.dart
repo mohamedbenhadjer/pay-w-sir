@@ -1,13 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:paywsir/screens/homeScreen.dart';
 import 'package:paywsir/screens/intro.dart';
+import 'package:paywsir/screens/welcomeScreen.dart';
 import 'package:paywsir/utils/colors.dart';
 import 'package:paywsir/widgets/bigText.dart';
 import 'package:paywsir/widgets/smallText.dart';
 import 'package:paywsir/screens/loadingPage.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'dart:math' as math;
+
+import 'package:shared_preferences/shared_preferences.dart';
 
 class loadingPage extends StatefulWidget {
   const loadingPage({super.key});
@@ -19,13 +24,45 @@ class loadingPage extends StatefulWidget {
 class _loadingPageState extends State<loadingPage>
     with SingleTickerProviderStateMixin {
   @override
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  late final AnimationController _controller = AnimationController(
+    duration: const Duration(seconds: 5),
+    vsync: this,
+  );
+
+  Future<void> _checkLoginAndNavigation() async {
+    final prefs = await SharedPreferences.getInstance();
+    final isFirstUse = prefs.getBool('isFirstUse') ?? true; // Default to true
+    final isLoggedIn = _auth.currentUser != null; // Check for logged-in user
+
+    if (isFirstUse) {
+      // Navigate to introScreen
+      await Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const introScreen()));
+      prefs.setBool('isFirstUse', false); // Update isFirstUse
+    } else if (!isLoggedIn) {
+      // Navigate to welcomeScreen
+      await Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const welcomeScreen()));
+    } else {
+      // Navigate to homeScreen
+      await Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (_) => const homeScreen()));
+    }
+  }
+
+  @override
   void initState() {
     super.initState();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
-    Future.delayed(const Duration(seconds: 5), () {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (_) => const introScreen()));
-    });
+
+    _controller
+      ..forward() // Start animation
+      ..addListener(() {
+        if (_controller.isCompleted) {
+          _checkLoginAndNavigation(); // Navigate after animation completes
+        }
+      });
   }
 
   @override

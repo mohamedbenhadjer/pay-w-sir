@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paywsir/screens/signUpScreen.dart';
 import 'package:paywsir/utils/colors.dart';
 import 'package:paywsir/widgets/bigText.dart';
+import 'package:paywsir/widgets/homeScreenItems.dart';
 import 'package:paywsir/widgets/smallText.dart';
 
 import 'infos.dart';
@@ -39,13 +40,8 @@ class _homeScreenState extends State<homeScreen> {
       pageController.dispose();
     }
 
-    double _deviceheight = MediaQuery.of(context).size.height;final FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-
-
-
-
-
+    double _deviceheight = MediaQuery.of(context).size.height;
+    final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
     var bottomNavItems;
 
@@ -59,7 +55,9 @@ class _homeScreenState extends State<homeScreen> {
                 width: _devicewidth,
                 height: _deviceheight * 0.1974248927038627,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(30),
+                      bottomLeft: Radius.circular(30)),
                   color: appColors.mainColor,
                 ),
               )),
@@ -195,14 +193,17 @@ class _homeScreenState extends State<homeScreen> {
                 width: _devicewidth * 0.0581395348837209,
               ),
               IconButton(
-                  onPressed: () {Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => InfosScreen(),
-                    ),
-                  );},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => InfosScreen(),
+                      ),
+                    );
+                  },
                   icon: Image.asset(
-                    "assets/images/card.png",color: Colors.white,
+                    "assets/images/card.png",
+                    color: Colors.white,
                     width: _devicewidth * 0.086046511627907,
                     height: _deviceheight * 0.0375536480686695,
                   )),
@@ -286,14 +287,14 @@ class _homeScreenState extends State<homeScreen> {
                     width: 60,
                   ),
                   BigText(
-                    text: "مخالفة من الدرجة 1",
+                    text: components[index].title,
                     color: Colors.white,
                     size: 20,
                     weight: FontWeight.w600,
                   ),
                 ],
               ),
-              Text("22/03/2024",
+              Text(components[index].date,
                   style: TextStyle(
                       fontSize: 13,
                       fontWeight: FontWeight.w400,
@@ -331,18 +332,18 @@ class _homeScreenState extends State<homeScreen> {
               Row(
                 children: [
                   SizedBox(
-                    width: 20,
+                    width: 30,
                   ),
-                  Text(" دج 2000.00",
+                  Text(components[index].price,
                       style: TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.w700,
                           color: Colors.white)),
                   SizedBox(
-                    width: 55,
+                    width: 75,
                   ),
                   SvgPicture.asset(
-                    "assets/images/wrong.svg",
+                    components[index].check,
                     width: 35.52083206176758,
                     height: 30.20833396911621,
                   )

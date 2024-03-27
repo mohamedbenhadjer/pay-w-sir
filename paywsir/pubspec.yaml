@@ -26,6 +26,7 @@ dependencies:
   flutter_credit_card: ^4.0.1
   patterns_canvas: ^0.4.0
   cloud_firestore: ^4.15.10
+  shared_preferences: ^2.2.2
 
   
 
