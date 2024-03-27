@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paywsir/screens/signUpScreen.dart';
+import 'package:paywsir/screens/welcomeScreen.dart';
 import 'package:paywsir/utils/colors.dart';
 import 'package:paywsir/widgets/bigText.dart';
 import 'package:paywsir/widgets/homeScreenItems.dart';
@@ -19,6 +20,7 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
+
   @override
   Widget build(BuildContext context) {
     double _devicewidth = MediaQuery.of(context).size.width;
@@ -241,7 +243,13 @@ class _homeScreenState extends State<homeScreen> {
                 width: _devicewidth * 0.059302325581395,
               ),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => welcomeScreen()));
+                  },
                   icon: SvgPicture.asset(
                     "assets/images/signout.svg",
                     width: _devicewidth * 0.086046511627907,

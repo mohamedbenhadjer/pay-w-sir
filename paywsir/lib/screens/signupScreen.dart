@@ -60,7 +60,15 @@ class _signUpScreenState extends State<signUpScreen> {
       print("User Registered: ${userCredential.user!.email}");
 
       // Add user information to Firestore
-      await _db.collection('users').add(toJson());
+      CollectionReference users =
+      FirebaseFirestore.instance.collection('users');
+      // Call the user's CollectionReference to add a new user
+      await users.doc(_email).set({
+        "Email": _email,
+        "Name": _name,
+        "Lisence Number": _lisenceNumber,
+        "Car Number": _carNumber,
+      });
 
       Navigator.pushReplacement(
         context,
@@ -70,6 +78,18 @@ class _signUpScreenState extends State<signUpScreen> {
       );
     } catch (e) {
       print("Error during registeration: $e");
+    }
+  }
+
+  Future<String?> getUser(String _email) async {
+    try {
+      CollectionReference users =
+      FirebaseFirestore.instance.collection('users');
+      final snapshot = await users.doc(_email).get();
+      final data = snapshot.data() as Map<String, dynamic>;
+      return data['Name'];
+    } catch (e) {
+      return 'Error fetching user';
     }
   }
 
