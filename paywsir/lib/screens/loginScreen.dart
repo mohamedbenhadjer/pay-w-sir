@@ -1,269 +1,321 @@
+import 'dart:ui';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flip_card/flip_card.dart';
+import 'package:flip_card/flip_card_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paywsir/screens/homeScreen.dart';
+import 'package:paywsir/screens/signUpScreen.dart';
+import 'package:paywsir/screens/welcomeScreen.dart';
 import 'package:paywsir/utils/colors.dart';
-import 'package:paywsir/widgets/bigText.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import '../components/card_alert_dialog.dart';
+import '../components/card_input_formatter.dart';
+import '../components/card_month_input_formatter.dart';
+import '../components/master_card.dart';
+import '../components/my_painter.dart';
+import '../constants.dart';
+import '../widgets/bigText.dart';
+import '../widgets/smallText.dart';
 
 class loginScreen extends StatefulWidget {
-  const loginScreen({super.key});
+  const loginScreen({Key? key}) : super(key: key);
 
   @override
   State<loginScreen> createState() => _loginScreenState();
 }
 
 class _loginScreenState extends State<loginScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  bool _isTouchedEmail = false;
-  bool _isTouchedPassword = false;
+  final TextEditingController emailController = TextEditingController();
+
+  final TextEditingController passwordController = TextEditingController();
+
+  String _email = '';
+
+  String _password = '';
+
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+
+  void _handleLogin() async {
+    try {
+      UserCredential userCredential = await _auth.signInWithEmailAndPassword(
+          email: _email, password: _password);
+      print("User Logged in succesfully: ${userCredential.user!.email}");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => homeScreen(),
+        ),
+      );
+    } catch (e) {
+      print("Error during registeration: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    double _devicewidth = MediaQuery.of(context).size.width;
-    double _deviceheight = MediaQuery.of(context).size.height;
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-
-    TextEditingController _emailController = TextEditingController();
-    TextEditingController _passController = TextEditingController();
-    String _email = "";
-    String _password = "";
-
-    void _handleLogin() async {
-      try {
-        UserCredential userCredential = await _auth.signInWithEmailAndPassword(
-            email: _email, password: _password);
-        print("User Logged in succesfully: ${userCredential.user!.email}");
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (_) => homeScreen(),
-          ),
-        );
-      } catch (e) {
-        print("Error during registeration: $e");
-      }
-    }
-
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-        child: Form(
-          key: _formKey,
-          child: Stack(
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Positioned(
-                  top: -_deviceheight * 0.0472103004291845,
-                  left: -_devicewidth * 0.1767441860465116,
-                  child: SvgPicture.asset(
-                    "assets/images/circles.svg",
-                    width: _devicewidth * 0.5790697674418605,
-                    height: _deviceheight * 0.2910300429184549,
-                  )),
-              Positioned(
-                  bottom: -_deviceheight * 0.0536909871244635,
-                  left: -_devicewidth * 0.2367441860465116,
-                  child: SvgPicture.asset(
-                    "assets/images/circles2.svg",
-                    width: _devicewidth * 0.5290697674418605,
-                    height: _deviceheight * 0.2310300429184549,
-                  )),
-              Positioned(
-                  bottom: -_deviceheight * 0.0536909871244635,
-                  right: -_devicewidth * 0.2367441860465116,
-                  child: SvgPicture.asset(
-                    "assets/images/circles3.svg",
-                    width: _devicewidth * 0.5290697674418605,
-                    height: _deviceheight * 0.2310300429184549,
-                  )),
-              Positioned(
-                  top: _deviceheight * 0.6884549356223176,
-                  left: _devicewidth * 0.3809302325581395,
-                  child: SvgPicture.asset(
-                    "assets/images/whiteLogo.svg",
-                    height: _deviceheight * 0.0736480686695279,
-                    width: _devicewidth * 0.1804651162790698,
-                  )),
-              Positioned(
-                top: _deviceheight * 0.2876394849785408,
-                left: _devicewidth * 0.0790697674418605,
-                child: Container(
-                  width: _devicewidth * 0.7906976744186047,
-                  height: _deviceheight * 0.055343347639485,
-                  decoration: ShapeDecoration(
-                    color: Colors.white,
-                    shape: RoundedRectangleBorder(
-                      side: BorderSide(width: 1, color: Color(0xFF2743FD)),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    shadows: [
-                      BoxShadow(
-                        color: Color(0x3F000000),
-                        blurRadius: 20,
-                        offset: Offset(0, 4),
-                        spreadRadius: 0,
-                      )
-                    ],
+              const SizedBox(height: 30),Row(
+                children: [SizedBox(width: 300,),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => welcomeScreen(),
+                          ),
+                        );
+                      },
+                      icon: SvgPicture.asset("assets/images/Right-Arrow 2.svg")),
+                ],
+              ),const SizedBox(height: 40,),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 161,
                   ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Row(
-                      children: [
-                        SizedBox(width: _devicewidth * 0.0395348837209302),
-                        Expanded(
-                          child: TextField(
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              hintText: "email.exemple@mail.com",
-                              border: InputBorder.none,
-                            ),
-                            onChanged: (value) {
-                              _email = value;
-                            },
+                  SvgPicture.asset("assets/images/whiteLogo.svg"),
+                  SizedBox(
+                    width: 80,
+                  ),
+
+                ],
+              ),
+              const SizedBox(height: 1),
+              BigText(
+                text: " تسجيل الدخول",
+                size: 32,
+                weight: FontWeight.w900,
+                color: Color(0xFF05126E),
+              ),
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 235,
+                  ),
+                  BigText(
+                    text: "البريد الالكتروني",
+                    weight: FontWeight.w900,
+                    size: 16,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 55,
+                width: MediaQuery.of(context).size.width / 1.12,
+                decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(width: 1, color: Color(0xFF2743FD)),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 20,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 15),
+                          hintText: 'email.exemple@mail.com',
+                          hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
                           ),
                         ),
-                        Icon(
-                          Icons.email,
-                          color: Color(0xFF2743FD),
-                        ),
-                        SizedBox(
-                          width: _devicewidth * 0.035348837209302,
-                        )
-                      ],
+                        onChanged: (value) {
+                          var text =
+                              value.replaceAll(RegExp(r'\s+\b|\b\s'), ' ');
+                          setState(() {
+                            emailController.value = emailController.value
+                                .copyWith(
+                                    text: text,
+                                    selection: TextSelection.collapsed(
+                                        offset: text.length),
+                                    composing: TextRange.empty);
+                            _email = emailController.text;
+                          });
+                        },
+                      ),
                     ),
-                  ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Icon(
+                      Icons.email,
+                      color: Colors.grey,
+                      size: 25,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                  ],
                 ),
               ),
-              Positioned(
-                top: _deviceheight * 0.4045922746781116,
-                left: _devicewidth * 0.0790697674418605,
-                child: Column(
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 271,
+                  ),
+                  BigText(
+                    text: "كلمة المرور",
+                    weight: FontWeight.w900,
+                    size: 16,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 55,
+                width: MediaQuery.of(context).size.width / 1.12,
+                decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(width: 1, color: Color(0xFF2743FD)),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 20,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Row(
                   children: [
-                    Container(
-                      width: _devicewidth * 0.7906976744186047,
-                      height: _deviceheight * 0.055343347639485,
-                      decoration: ShapeDecoration(
-                        color: Colors.white,
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(width: 1, color: Color(0xFF2743FD)),
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        shadows: [
-                          BoxShadow(
-                            color: Color(0x3F000000),
-                            blurRadius: 20,
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
-                          )
-                        ],
-                      ),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10.0),
-                        child: Row(
-                          children: [
-                            SizedBox(width: _devicewidth * 0.0395348837209302),
-                            Expanded(
-                              child: StatefulBuilder(
-                                builder: (context, setState) {
-                                  bool _showPassword = false;
-
-                                  return TextField(
-                                    keyboardType: TextInputType.visiblePassword,
-                                    obscureText: !_showPassword,
-                                    decoration: InputDecoration(
-                                      hintText: "Password",
-                                      border: InputBorder.none,
-                                      suffixIcon: IconButton(
-                                        icon: Icon(
-                                          _showPassword
-                                              ? Icons.visibility_off
-                                              : Icons.visibility,
-                                        ),
-                                        onPressed: () {
-                                          setState(() {
-                                            if (_showPassword == false) {
-                                              _showPassword = false;
-                                            } else {
-                                              _showPassword = true;
-                                            }
-                                          });
-                                        },
-                                      ),
-                                    ),
-                                    onChanged: (value) {
-                                      _password = value;
-                                    },
-                                  );
-                                },
-                              ),
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: TextFormField(
+                          controller: passwordController,
+                          keyboardType: TextInputType.text,
+                          obscureText: true,
+                          decoration: const InputDecoration(
+                            border: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(vertical: 15),
+                            hintText: '••••••••••••••••••••••••',
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
                             ),
-                          ],
+                          ),
+                          onChanged: (value) {
+                            var text =
+                                value.replaceAll(RegExp(r'\s+\b|\b\s'), ' ');
+                            setState(() {
+                              passwordController.value =
+                                  passwordController.value.copyWith(
+                                      text: text,
+                                      selection: TextSelection.collapsed(
+                                          offset: text.length),
+                                      composing: TextRange.empty);
+                              _password = passwordController.text;
+                            });
+                          },
                         ),
                       ),
                     ),
                     SizedBox(
-                      height: _deviceheight * 0.0695278969957082,
+                      width: 15,
                     ),
-                    Container(
-                      width: _devicewidth * 0.472093023255814,
-                      height: _deviceheight * 0.0536480686695279,
-                      decoration: ShapeDecoration(
-                        color: Color(0xFF2743FD),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        shadows: [
-                          BoxShadow(
-                            color: Color(0x59000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 4),
-                            spreadRadius: 0,
-                          )
-                        ],
-                      ),
-                      child: TextButton(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              _handleLogin();
-                            }
-                          },
-                          child: BigText(
-                            text: " تسجيل الدخول",
-                            color: Colors.white,
-                            size: 20,
-                            weight: FontWeight.w700,
-                          )),
-                    )
+                    Icon(
+                      Icons.visibility,
+                      color: Colors.grey,
+                      size: 25,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
                   ],
                 ),
               ),
-              Positioned(
-                  right: _devicewidth * 0.1534883720930233,
-                  top: _deviceheight * 0.2490128755364807,
+              const SizedBox(height: 12),
+              Column(
+                children: [
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 30,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => signUpScreen(),
+                            ),
+                          );
+                        },
+                        child: SmallText(
+                          text: " أنشئ حساب ",
+                          color: appColors.mainColor,
+                          size: 13,
+                        ),
+                      ),
+                      SmallText(
+                        text: "ليس لديك حساب من قبل؟ ",
+                        size: 13,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 20 * 3),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: appColors.mainColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    minimumSize:
+                        Size(MediaQuery.of(context).size.width / 1.12, 55),
+                  ),
+                  onPressed: () {
+                    _handleLogin();
+                  },
                   child: BigText(
-                    text: "البريد الالكتروني",
+                    text: " تسجيل الدخول",
+                    size: 20,
                     weight: FontWeight.w900,
-                    size: 16,
+                    color: Colors.white,
                   )),
-              Positioned(
-                  right: _devicewidth * 0.1534883720930233,
-                  top: _deviceheight * 0.3656223175965665,
-                  child: BigText(
-                    text: "كلمة المرور",
-                    weight: FontWeight.w900,
-                    size: 16,
-                  )),
-              Positioned(
-                  top: _deviceheight * 0.1635622317596567,
-                  right: _devicewidth * 0.2562790697674419,
-                  child: BigText(
-                    text: "تسجيل الدخول",
-                    size: 32,
-                    weight: FontWeight.w900,
-                    color: Color(0xFF05126E),
-                  ))
             ],
           ),
         ),

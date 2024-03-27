@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:paywsir/screens/signUpScreen.dart';
 import 'package:paywsir/utils/colors.dart';
 import 'package:paywsir/widgets/bigText.dart';
 import 'package:paywsir/widgets/smallText.dart';
@@ -17,6 +18,7 @@ class _homeScreenState extends State<homeScreen> {
   Widget build(BuildContext context) {
     double _devicewidth = MediaQuery.of(context).size.width;
     double _deviceheight = MediaQuery.of(context).size.height;
+    var bottomNavItems;
     return Scaffold(
       body: Container(
           child: Stack(
@@ -33,10 +35,10 @@ class _homeScreenState extends State<homeScreen> {
               )),
           Positioned(
               top: _deviceheight * 0.0751072961373391,
-              left: _devicewidth * 0.4023255813953488,
+              left: _devicewidth * 0.3823255813953488,
               child: SvgPicture.asset(
                 "assets/images/blueLogo.svg",
-                width: _devicewidth * 0.1627906976744186,
+                width: _devicewidth * 0.2127906976744186,
               )),
           Positioned(
               top: _deviceheight * 0.2120600858369099,
@@ -80,11 +82,7 @@ class _homeScreenState extends State<homeScreen> {
                   height: _deviceheight * 0.203862660944206,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(30),
-                      gradient: LinearGradient(
-                        begin: Alignment.centerRight,
-                        end: Alignment.centerLeft,
-                        colors: [Color(0xcc1123cc), Color(0xc1294bfc)],
-                      )))),
+                      color: appColors.mainColor))),
           Positioned(
               top: _deviceheight * 0.2957510729613734,
               left: _devicewidth * 0.0348837209302326,
@@ -140,6 +138,73 @@ class _homeScreenState extends State<homeScreen> {
               ))
         ],
       )),
+      bottomNavigationBar: Container(
+          width: _devicewidth,
+          height: _deviceheight * 0.0686695278969957,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+                topRight: Radius.circular(30), topLeft: Radius.circular(30)),
+            color: appColors.mainColor,
+          ),
+          child: Row(
+            children: [
+              SizedBox(
+                width: _devicewidth * 0.0581395348837209,
+              ),
+              IconButton(
+                  onPressed: () {},
+                  icon: SvgPicture.asset(
+                    "assets/images/user.svg",
+                    width: _devicewidth * 0.086046511627907,
+                    height: _deviceheight * 0.0375536480686695,
+                  )),
+              SizedBox(
+                width: _devicewidth * 0.059302325581395,
+              ),
+              IconButton(
+                  onPressed: () {},
+                  icon: SvgPicture.asset(
+                    "assets/images/notification.svg",
+                    width: _devicewidth * 0.086046511627907,
+                    height: _deviceheight * 0.0375536480686695,
+                  )),
+              SizedBox(
+                width: _devicewidth * 0.059302325581395,
+              ),
+              IconButton(
+                  onPressed: () {},
+                  icon: SvgPicture.asset(
+                    "assets/images/home.svg",
+                    width: _devicewidth * 0.086046511627907,
+                    height: _deviceheight * 0.0375536480686695,
+                  )),
+              SizedBox(
+                width: _devicewidth * 0.059302325581395,
+              ),
+              IconButton(
+                  onPressed: () {},
+                  icon: SvgPicture.asset(
+                    "assets/images/question.svg",
+                    width: _devicewidth * 0.086046511627907,
+                    height: _deviceheight * 0.0375536480686695,
+                  )),
+              SizedBox(
+                width: _devicewidth * 0.059302325581395,
+              ),
+              IconButton(
+                  onPressed: () {Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => signUpScreen(),
+                    ),
+                  );},
+                  icon: SvgPicture.asset(
+                    "assets/images/signout.svg",
+                    width: _devicewidth * 0.086046511627907,
+                    height: _deviceheight * 0.0375536480686695,
+                  ))
+            ],
+          )),
     );
   }
 }

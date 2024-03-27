@@ -23,11 +23,11 @@ class paymentScreen extends StatefulWidget {
 
 class _paymentScreenState extends State<paymentScreen> {
   final TextEditingController cardNumberController = TextEditingController();
-  final TextEditingController cardHolderNameController =
+  final TextEditingController nameController =
       TextEditingController();
-  final TextEditingController cardExpiryDateController =
+  final TextEditingController passwordController =
       TextEditingController();
-  final TextEditingController cardCvvController = TextEditingController();
+  final TextEditingController carNumberController = TextEditingController();
 
   final FlipCardController flipCardController = FlipCardController();
 
@@ -57,12 +57,12 @@ class _paymentScreenState extends State<paymentScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: buildCreditCard(
                       color: kDarkBlue,
-                      cardExpiration: cardExpiryDateController.text.isEmpty
+                      cardExpiration: passwordController.text.isEmpty
                           ? "08/2022"
-                          : cardExpiryDateController.text,
-                      cardHolder: cardHolderNameController.text.isEmpty
+                          : passwordController.text,
+                      cardHolder: nameController.text.isEmpty
                           ? "Card Holder"
-                          : cardHolderNameController.text.toUpperCase(),
+                          : nameController.text.toUpperCase(),
                       cardNumber: cardNumberController.text.isEmpty
                           ? "XXXX XXXX XXXX XXXX"
                           : cardNumberController.text,
@@ -110,9 +110,9 @@ class _paymentScreenState extends State<paymentScreen> {
                                   child: Padding(
                                     padding: const EdgeInsets.all(8.0),
                                     child: Text(
-                                      cardCvvController.text.isEmpty
+                                      carNumberController.text.isEmpty
                                           ? "322"
-                                          : cardCvvController.text,
+                                          : carNumberController.text,
                                       style: const TextStyle(
                                         color: Colors.black,
                                         fontSize: 21,
@@ -229,7 +229,7 @@ class _paymentScreenState extends State<paymentScreen> {
                     ),
                     Expanded(
                       child: TextFormField(
-                        controller: cardHolderNameController,
+                        controller: nameController,
                         keyboardType: TextInputType.name,
                         decoration: const InputDecoration(
                           border: InputBorder.none,
@@ -242,8 +242,8 @@ class _paymentScreenState extends State<paymentScreen> {
                         ),
                         onChanged: (value) {
                           setState(() {
-                            cardHolderNameController.value =
-                                cardHolderNameController.value.copyWith(
+                            nameController.value =
+                                nameController.value.copyWith(
                                     text: value,
                                     selection: TextSelection.collapsed(
                                         offset: value.length),
@@ -292,7 +292,7 @@ class _paymentScreenState extends State<paymentScreen> {
                         ),
                         Expanded(
                           child: TextFormField(
-                            controller: cardExpiryDateController,
+                            controller: passwordController,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               border: InputBorder.none,
@@ -313,8 +313,8 @@ class _paymentScreenState extends State<paymentScreen> {
                               var text =
                                   value.replaceAll(RegExp(r'\s+\b|\b\s'), ' ');
                               setState(() {
-                                cardExpiryDateController.value =
-                                    cardExpiryDateController.value.copyWith(
+                                passwordController.value =
+                                    passwordController.value.copyWith(
                                         text: text,
                                         selection: TextSelection.collapsed(
                                             offset: text.length),
@@ -360,7 +360,7 @@ class _paymentScreenState extends State<paymentScreen> {
                         ),
                         Expanded(
                           child: TextFormField(
-                            controller: cardCvvController,
+                            controller: carNumberController,
                             keyboardType: TextInputType.number,
                             decoration: const InputDecoration(
                               border: InputBorder.none,
@@ -428,9 +428,9 @@ class _paymentScreenState extends State<paymentScreen> {
                     showDialog(
                         context: context,
                         builder: (context) => const CardAlertDialog());
-                    cardCvvController.clear();
-                    cardExpiryDateController.clear();
-                    cardHolderNameController.clear();
+                    carNumberController.clear();
+                    passwordController.clear();
+                    nameController.clear();
                     cardNumberController.clear();
                     flipCardController.toggleCard();
                   });

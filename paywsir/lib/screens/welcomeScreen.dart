@@ -4,6 +4,7 @@ import 'package:paywsir/screens/chose.dart';
 import 'package:paywsir/screens/loginScreen.dart';
 import 'package:paywsir/screens/paymentScreeen.dart';
 import 'package:paywsir/screens/signupScreen.dart';
+
 import 'package:paywsir/utils/colors.dart';
 import 'package:paywsir/widgets/bigText.dart';
 import 'package:paywsir/widgets/smallText.dart';
@@ -159,7 +160,7 @@ Widget _welcomeScreen(BuildContext context) {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (_) => signupScreen(),
+                        builder: (_) => signUpScreen(),
                       ),
                     );
                   },

@@ -1,93 +1,134 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:paywsir/screens/homeScreen.dart';
-import 'package:paywsir/utils/colors.dart';
-import 'package:paywsir/widgets/bigText.dart';
+import 'dart:ui';
 
-class signupScreen extends StatefulWidget {
-  const signupScreen({super.key});
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flip_card/flip_card.dart';
+import 'package:flip_card/flip_card_controller.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:paywsir/components/carNumber_formatter.dart';
+import 'package:paywsir/screens/homeScreen.dart';
+import 'package:paywsir/screens/welcomeScreen.dart';
+import 'package:paywsir/utils/colors.dart';
+import '../components/card_alert_dialog.dart';
+import '../components/card_input_formatter.dart';
+import '../components/card_month_input_formatter.dart';
+import '../components/master_card.dart';
+import '../components/my_painter.dart';
+import '../constants.dart';
+import '../widgets/bigText.dart';
+import '../widgets/smallText.dart';
+
+class signUpScreen extends StatefulWidget {
+  const signUpScreen({Key? key}) : super(key: key);
 
   @override
-  State<signupScreen> createState() => _signupScreenState();
+  State<signUpScreen> createState() => _signUpScreenState();
 }
 
-class _signupScreenState extends State<signupScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passController = TextEditingController();
-  bool _showPassword = false;
+class _signUpScreenState extends State<signUpScreen> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController carNumberController = TextEditingController();
+  final TextEditingController lisenceNumberController = TextEditingController();
+
+  final FlipCardController flipCardController = FlipCardController();
+  String _email = '';
+  String _name = '';
+  String _carNumber = '';
+  String _password = '';
+  String _lisenceNumber = '';
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final _db = FirebaseFirestore.instance;
+
+  toJson() {
+    return {
+      "Email": _email,
+      "Name": _name,
+      "Lisence Number": _lisenceNumber,
+      "Car Number": _carNumber,
+    };
+  }
+
+  void _handleSignUp() async {
+    try {
+      UserCredential userCredential = await _auth
+          .createUserWithEmailAndPassword(email: _email, password: _password);
+      print("User Registered: ${userCredential.user!.email}");
+
+      // Add user information to Firestore
+      await _db.collection('users').add(toJson());
+
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => homeScreen(),
+        ),
+      );
+    } catch (e) {
+      print("Error during registeration: $e");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final FirebaseAuth _auth = FirebaseAuth.instance;
-
-    String _email = "";
-    String _password = "";
-    double _devicewidth = MediaQuery.of(context).size.width;
-
-    double _deviceheight = MediaQuery.of(context).size.height;
-    void _handleSignUp() async {
-      try {
-        UserCredential userCredential = await _auth
-            .createUserWithEmailAndPassword(email: _email, password: _password);
-        print("User Registered: ${userCredential.user!.email}");
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (_) => homeScreen(),
-          ),
-        );
-      } catch (e) {
-        print("Error during registeration: $e");
-      }
-    }
-
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      body: Container(
-          child: Form(
-        key: _formKey,
-        child: Stack(
-          children: [
-            Positioned(
-                top: -_deviceheight * 0.0672103004291845,
-                left: -_devicewidth * 0.1767441860465116,
-                child: SvgPicture.asset(
-                  "assets/images/circles.svg",
-                  width: _devicewidth * 0.5790697674418605,
-                  height: _deviceheight * 0.2910300429184549,
-                )),
-            Positioned(
-                bottom: -_deviceheight * 0.0536909871244635,
-                left: -_devicewidth * 0.2367441860465116,
-                child: SvgPicture.asset(
-                  "assets/images/circles2.svg",
-                  width: _devicewidth * 0.5290697674418605,
-                  height: _deviceheight * 0.2310300429184549,
-                )),
-            Positioned(
-                bottom: -_deviceheight * 0.0536909871244635,
-                right: -_devicewidth * 0.2367441860465116,
-                child: SvgPicture.asset(
-                  "assets/images/circles3.svg",
-                  width: _devicewidth * 0.5290697674418605,
-                  height: _deviceheight * 0.2310300429184549,
-                )),
-            Positioned(
-                top: _deviceheight * 0.6884549356223176,
-                left: _devicewidth * 0.3809302325581395,
-                child: SvgPicture.asset(
-                  "assets/images/whiteLogo.svg",
-                  height: _deviceheight * 0.0736480686695279,
-                  width: _devicewidth * 0.1804651162790698,
-                )),
-            Positioned(
-              top: _deviceheight * 0.2876394849785408,
-              left: _devicewidth * 0.0790697674418605,
-              child: Container(
-                width: _devicewidth * 0.7906976744186047,
-                height: _deviceheight * 0.055343347639485,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 30),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 161,
+                  ),
+                  SvgPicture.asset("assets/images/whiteLogo.svg"),
+                  SizedBox(
+                    width: 80,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                            builder: (_) => welcomeScreen(),
+                          ),
+                        );
+                      },
+                      icon: SvgPicture.asset("assets/images/Right-Arrow 2.svg"))
+                ],
+              ),
+              const SizedBox(height: 1),
+              BigText(
+                text: " إنشاء حساب",
+                size: 32,
+                weight: FontWeight.w900,
+                color: Color(0xFF05126E),
+              ),
+              const SizedBox(height: 20),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 235,
+                  ),
+                  BigText(
+                    text: "البريد الالكتروني",
+                    weight: FontWeight.w900,
+                    size: 16,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 55,
+                width: MediaQuery.of(context).size.width / 1.12,
                 decoration: ShapeDecoration(
                   color: Colors.white,
                   shape: RoundedRectangleBorder(
@@ -103,44 +144,240 @@ class _signupScreenState extends State<signupScreen> {
                     )
                   ],
                 ),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
-                  child: Row(
-                    children: [
-                      SizedBox(width: _devicewidth * 0.0395348837209302),
-                      Expanded(
-                        child: TextField(
-                          controller: _emailController,
-                          keyboardType: TextInputType.emailAddress,
-                          decoration: InputDecoration(
-                            hintText: "email.exemple@mail.com",
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 15),
+                          hintText: 'email.exemple@mail.com',
+                          hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 16,
+                          ),
+                        ),
+                        onChanged: (value) {
+                          var text =
+                              value.replaceAll(RegExp(r'\s+\b|\b\s'), ' ');
+                          setState(() {
+                            emailController.value = emailController.value
+                                .copyWith(
+                                    text: text,
+                                    selection: TextSelection.collapsed(
+                                        offset: text.length),
+                                    composing: TextRange.empty);
+                            _email = emailController.text;
+                          });
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Icon(
+                      Icons.email,
+                      color: Colors.grey,
+                      size: 25,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 271,
+                  ),
+                  BigText(
+                    text: "كلمة المرور",
+                    weight: FontWeight.w900,
+                    size: 16,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 55,
+                width: MediaQuery.of(context).size.width / 1.12,
+                decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(width: 1, color: Color(0xFF2743FD)),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 20,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Expanded(
+                      child: Align(
+                        alignment: Alignment.centerRight,
+                        child: TextFormField(
+                          controller: passwordController,
+                          keyboardType: TextInputType.text,
+                          obscureText: true,
+                          decoration: const InputDecoration(
                             border: InputBorder.none,
+                            contentPadding: EdgeInsets.symmetric(vertical: 15),
+                            hintText: '••••••••••••••••••••••••',
+                            hintStyle: TextStyle(
+                              color: Colors.grey,
+                              fontSize: 16,
+                            ),
                           ),
                           onChanged: (value) {
-                            _email = _emailController.text;
+                            var text =
+                                value.replaceAll(RegExp(r'\s+\b|\b\s'), ' ');
+                            setState(() {
+                              passwordController.value =
+                                  passwordController.value.copyWith(
+                                      text: text,
+                                      selection: TextSelection.collapsed(
+                                          offset: text.length),
+                                      composing: TextRange.empty);
+                              _password = passwordController.text;
+                            });
                           },
                         ),
                       ),
-                      Icon(
-                        Icons.email,
-                        color: Color(0xFF2743FD),
-                      ),
-                      SizedBox(
-                        width: _devicewidth * 0.035348837209302,
-                      )
-                    ],
-                  ),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Icon(
+                      Icons.visibility,
+                      color: Colors.grey,
+                      size: 25,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                  ],
                 ),
               ),
-            ),
-            Positioned(
-              top: _deviceheight * 0.4045922746781116,
-              left: _devicewidth * 0.0790697674418605,
-              child: Column(
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 255,
+                  ),
+                  BigText(
+                    text: "الاسم واللقب",
+                    weight: FontWeight.w900,
+                    size: 16,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Container(
+                height: 55,
+                width: MediaQuery.of(context).size.width / 1.12,
+                decoration: ShapeDecoration(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                    side: BorderSide(width: 1, color: Color(0xFF2743FD)),
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x3F000000),
+                      blurRadius: 20,
+                      offset: Offset(0, 4),
+                      spreadRadius: 0,
+                    )
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: 30,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        controller: nameController,
+                        keyboardType: TextInputType.name,
+                        decoration: const InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.symmetric(vertical: 15),
+                          hintText: 'XXXXXX      XXXXXXX',
+                          hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 15,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        onChanged: (value) {
+                          setState(() {
+                            nameController.value = nameController.value
+                                .copyWith(
+                                    text: value,
+                                    selection: TextSelection.collapsed(
+                                        offset: value.length),
+                                    composing: TextRange.empty);
+                            _name = nameController.text;
+                          });
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                    Icon(
+                      Icons.person,
+                      color: Colors.grey,
+                      size: 30,
+                    ),
+                    SizedBox(
+                      width: 15,
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 12),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 210,
+                  ),
+                  BigText(
+                    text: "رقم رخصة السياقة",
+                    weight: FontWeight.w900,
+                    size: 16,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    width: _devicewidth * 0.7906976744186047,
-                    height: _deviceheight * 0.055343347639485,
+                    height: 55,
+                    width: MediaQuery.of(context).size.width / 1.12,
                     decoration: ShapeDecoration(
                       color: Colors.white,
                       shape: RoundedRectangleBorder(
@@ -156,106 +393,203 @@ class _signupScreenState extends State<signupScreen> {
                         )
                       ],
                     ),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
-                      child: Row(
-                        children: [
-                          SizedBox(width: _devicewidth * 0.0395348837209302),
-                          Expanded(
-                              child: TextField(
-                            controller: _passController,
-                            keyboardType: TextInputType.visiblePassword,
-                            obscureText: !_showPassword,
-                            decoration: InputDecoration(
-                              hintText: "Password",
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            controller: lisenceNumberController,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
                               border: InputBorder.none,
-                              suffixIcon: IconButton(
-                                icon: Icon(
-                                  _showPassword
-                                      ? Icons.visibility_off
-                                      : Icons.visibility,
-                                ),
-                                onPressed: () {
-                                  if (_showPassword == true) {
-                                    _showPassword = false;
-                                  } else {
-                                    _showPassword = true;
-                                  }
-                                },
-                              ),
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 15),
+                              hintText: 'XXXXXXXXXXXXXX',
+                              hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400),
                             ),
                             onChanged: (value) {
-                              _password = _passController.text;
+                              setState(() {
+                                lisenceNumberController.value =
+                                    lisenceNumberController.value.copyWith(
+                                        text: value,
+                                        selection: TextSelection.collapsed(
+                                            offset: value.length),
+                                        composing: TextRange.empty);
+                                _lisenceNumber = lisenceNumberController.text;
+                              });
                             },
-                          )),
-                        ],
-                      ),
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Icon(
+                          Icons.add_card_outlined,
+                          color: Colors.grey,
+                          size: 30,
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                      ],
                     ),
                   ),
+                ],
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Row(
+                children: [
                   SizedBox(
-                    height: _deviceheight * 0.0695278969957082,
+                    width: 223,
                   ),
+                  BigText(
+                    text: "رقم لوحة السيارة",
+                    weight: FontWeight.w900,
+                    size: 16,
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
                   Container(
-                    width: _devicewidth * 0.472093023255814,
-                    height: _deviceheight * 0.0536480686695279,
+                    height: 55,
+                    width: MediaQuery.of(context).size.width / 1.12,
                     decoration: ShapeDecoration(
-                      color: Color(0xFF2743FD),
+                      color: Colors.white,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10),
+                        side: BorderSide(width: 1, color: Color(0xFF2743FD)),
+                        borderRadius: BorderRadius.circular(30),
                       ),
                       shadows: [
                         BoxShadow(
-                          color: Color(0x59000000),
-                          blurRadius: 4,
+                          color: Color(0x3F000000),
+                          blurRadius: 20,
                           offset: Offset(0, 4),
                           spreadRadius: 0,
                         )
                       ],
                     ),
-                    child: TextButton(
-                        onPressed: () {
-                          if (_formKey.currentState!.validate()) {
-                            _handleSignUp();
-                          }
-                        },
-                        child: BigText(
-                          text: " إنشاء حساب",
-                          color: Colors.white,
-                          size: 20,
-                          weight: FontWeight.w700,
-                        )),
-                  )
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: 30,
+                        ),
+                        Expanded(
+                          child: TextFormField(
+                            controller: carNumberController,
+                            keyboardType: TextInputType.number,
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                              contentPadding:
+                                  EdgeInsets.symmetric(vertical: 15),
+                              hintText: 'XXXXX - XXX - XX',
+                              hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              LengthLimitingTextInputFormatter(10),
+                              CarNumberFormatter(),
+                            ],
+                            onChanged: (value) {
+                              setState(() {
+                                carNumberController.value =
+                                    carNumberController.value.copyWith(
+                                        text: value,
+                                        selection: TextSelection.collapsed(
+                                            offset: value.length),
+                                        composing: TextRange.empty);
+                                _carNumber = carNumberController.text;
+                              });
+                            },
+                          ),
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                        Icon(
+                          Icons.car_crash_outlined,
+                          color: Colors.grey,
+                          size: 30,
+                        ),
+                        SizedBox(
+                          width: 15,
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
               ),
-            ),
-            Positioned(
-                right: _devicewidth * 0.1534883720930233,
-                top: _deviceheight * 0.2490128755364807,
-                child: BigText(
-                  text: "البريد الالكتروني",
-                  weight: FontWeight.w900,
-                  size: 16,
-                )),
-            Positioned(
-                right: _devicewidth * 0.1534883720930233,
-                top: _deviceheight * 0.3656223175965665,
-                child: BigText(
-                  text: "كلمة المرور",
-                  weight: FontWeight.w900,
-                  size: 16,
-                )),
-            Positioned(
-                top: _deviceheight * 0.1635622317596567,
-                right: _devicewidth * 0.2962790697674419,
-                child: BigText(
-                  text: " إنشاء حساب",
-                  size: 32,
-                  weight: FontWeight.w900,
-                  color: Color(0xFF05126E),
-                )),
-          ],
+              Column(
+                children: [
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Row(
+                    children: [
+                      SizedBox(
+                        width: 30,
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (_) => signUpScreen(),
+                            ),
+                          );
+                        },
+                        child: SmallText(
+                          text: " بتسجيل الدخول ",
+                          color: appColors.mainColor,
+                          size: 13,
+                        ),
+                      ),
+                      SmallText(
+                        text: "لديك بالفعل حساب؟ قم ",
+                        size: 13,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              const SizedBox(height: 12 * 3),
+              ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: appColors.mainColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    minimumSize:
+                        Size(MediaQuery.of(context).size.width / 1.12, 55),
+                  ),
+                  onPressed: () {
+                    _handleSignUp();
+                  },
+                  child: BigText(
+                    text: " إنشاء حساب",
+                    size: 20,
+                    weight: FontWeight.w900,
+                    color: Colors.white,
+                  )),
+            ],
+          ),
         ),
-      )),
+      ),
     );
   }
 }
