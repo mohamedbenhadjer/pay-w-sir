@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:paywsir/screens/d1.dart';
+import 'package:paywsir/screens/d2.dart';
+import 'package:paywsir/screens/d3.dart';
+import 'package:paywsir/screens/d4.dart';
 import 'package:paywsir/screens/infos.dart';
 import 'package:paywsir/screens/payment_methode.dart';
 import 'package:paywsir/widgets/smallText.dart';
@@ -100,7 +104,7 @@ class Chose extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PaymentMethode()),
+                      MaterialPageRoute(builder: (context) => D1()),
                     );
                   },
                   child: SmallText(
@@ -133,7 +137,7 @@ class Chose extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PaymentMethode()),
+                      MaterialPageRoute(builder: (context) => D2()),
                     );
                   },
                   child: SmallText(
@@ -166,7 +170,7 @@ class Chose extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PaymentMethode()),
+                      MaterialPageRoute(builder: (context) => D3()),
                     );
                   },
                   child: SmallText(
@@ -199,7 +203,7 @@ class Chose extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => PaymentMethode()),
+                      MaterialPageRoute(builder: (context) => D4()),
                     );
                   },
                   child: SmallText(
