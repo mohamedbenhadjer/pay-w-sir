@@ -41,38 +41,6 @@ class _homeScreenState extends State<homeScreen> {
 
     double _deviceheight = MediaQuery.of(context).size.height;final FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-    Future<DocumentSnapshot<Map<String, dynamic>>> getCarInfo() async {
-      final currentUser = FirebaseAuth.instance.currentUser;
-      if (currentUser != null) {
-        // Get the user ID
-        final uid = currentUser.uid;
-
-        // Access the car document based on the user ID
-        final docRef = firestore.collection("users").doc(uid);
-        final snapshot = await docRef.get();
-        return snapshot;
-      } else {
-        // Handle the case where no user is signed in
-        print("No user signed in");
-        return Future.value(null); // Return null or handle it differently
-      }
-    }String _email = '';
-    String _name = '';
-    String _carNumber = '';
-    String _password = '';
-    String _lisenceNumber = '';
-
-    Future<void> _displayCarInfo() async {
-      final snapshot = await getCarInfo();
-      if (snapshot.exists) {
-        final usersData = snapshot.data();
-        setState(() {
-          _name = usersData?['Name'] ;
-          _lisenceNumber = usersData?['Lisence Number'];
-          _carNumber = usersData?['Car Number'];
-        });
-      }
-    }
 
 
 
