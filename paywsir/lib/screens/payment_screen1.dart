@@ -28,38 +28,17 @@ class PaymentScreen1 extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => PaymentMethode()),
                   );
                 },
-                icon: Icon(
-                  Icons.arrow_right_alt_sharp,
-                  color: Color(0xFF2743FD),
-                  size: 30,
-                ),
+                icon: SvgPicture.asset('assets/images/Right-Arrow 3.svg'),
               ),
             ),
             Positioned(
-              left: _devicewidth * 0.43,
-              top: _deviceheight * 0.13,
-              child: Text(
-                'P',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 50,
-                  fontStyle: FontStyle.italic,
-                  fontFamily: 'Josefin Sans',
-                  fontWeight: FontWeight.w700,
-                  height: 0,
-                ),
-              ),
-            ),
-            Positioned(
-              left: _devicewidth * 0.52,
-              top: _deviceheight * 0.13,
-              child: SvgPicture.asset(
-                "assets/images/Vector 11.svg",
-                width: _devicewidth * 0.0651162790697674,
-                height: _deviceheight * 0.0472103004291845,
-              ),
-            ),
+                left: _devicewidth * 0.4,
+                top: _deviceheight * 0.12,
+                child: SvgPicture.asset(
+                  "assets/images/whiteLogo.svg",
+                  height: _deviceheight * 0.0736480686695279,
+                  width: _devicewidth * 0.1804651162790698,
+                )),
             Positioned(
               left: _devicewidth * 0.3418604651162791,
               top: _deviceheight * 0.8133047210300429,
