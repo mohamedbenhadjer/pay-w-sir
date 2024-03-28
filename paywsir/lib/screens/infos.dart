@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:paywsir/screens/chose.dart';
-import 'package:paywsir/screens/payment_methode.dart';
+
 import 'package:paywsir/screens/welcomeScreen.dart';
 import 'package:paywsir/widgets/smallText.dart';
 

@@ -6,7 +6,7 @@ import 'package:paywsir/screens/d2.dart';
 import 'package:paywsir/screens/d3.dart';
 import 'package:paywsir/screens/d4.dart';
 import 'package:paywsir/screens/infos.dart';
-import 'package:paywsir/screens/payment_methode.dart';
+
 import 'package:paywsir/widgets/smallText.dart';
 
 class Chose extends StatelessWidget {

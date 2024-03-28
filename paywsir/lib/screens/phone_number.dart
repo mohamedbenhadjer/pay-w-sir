@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:paywsir/screens/infos.dart';
 import 'package:paywsir/screens/otp_code.dart';
-import 'package:paywsir/screens/payment_methode.dart';
+
 
 class PhoneNumber extends StatelessWidget {
   const PhoneNumber({super.key});
@@ -24,7 +25,7 @@ class PhoneNumber extends StatelessWidget {
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => PaymentMethode()),
+                    MaterialPageRoute(builder: (context) => InfosScreen()),
                   );
                 },
                 icon: Center(

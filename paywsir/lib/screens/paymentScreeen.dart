@@ -6,7 +6,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:paywsir/screens/payment_methode.dart';
+import 'package:paywsir/screens/chose.dart';
+
 import 'package:paywsir/screens/phone_number.dart';
 import 'package:paywsir/screens/welcomeScreen.dart';
 import 'package:paywsir/utils/colors.dart';
@@ -56,7 +57,7 @@ class _paymentScreenState extends State<paymentScreen> {
                         Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
-                            builder: (_) => PaymentMethode(),
+                            builder: (_) => Chose(),
                           ),
                         );
                       },
